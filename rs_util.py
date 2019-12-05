@@ -2,6 +2,7 @@
 import numpy as np
 import cv2 as cv
 import matplotlib.pyplot as plt 
+import matplotlib.lines as mlines
 
 
 
@@ -52,35 +53,47 @@ def get_obstacles(median_depth, depth_thresh):
 
     return obstacles
 
-def plot_circles(circles, plt, ax, fig):
+def plot_circles(circles, plt, ax, fig, x_vals, y_vals):
     # Get the X values in order to plot these points
     ax.clear()
     plt.xlim(0, 10000)
-    plt.ylim(0, 10000)
+    plt.ylim(-1000, 10000)
     plt.gca().set_aspect('equal', adjustable='box')
 
     for c in circles:
         ax.add_artist(c)
+    if not x_vals == []:
+        x_vals[0] = (x_vals[0]/640.0 * 10000)
+        x_vals[1] = (x_vals[1]/640.0 * 10000)
+        #line between both objects
+        l = mlines.Line2D(x_vals, y_vals)
+        ax.add_line(l)
+        #line from realsense to left object
+        l = mlines.Line2D([x_vals[0], 5000], [y_vals[0], -1000])
+        ax.add_line(l)
+        #line from realsense to right object
+        l = mlines.Line2D([x_vals[1], 5000], [y_vals[1], -1000])
+        ax.add_line(l)
     fig.canvas.draw()
 
 def get_obstacle_circles(depth_colormap, median_depth, obstacles):
     point_median_list = []
     circles = []
+    obj_size_thresh = 20
 
     for row in obstacles:
         median = np.nanmedian(median_depth[row[0]:row[1]])
         obj_size = len(range(row[0],row[1]))
-        if not median == 0 and obj_size > 10:
+        if not median == 0 and obj_size > 20 and median < 4000:
             for x in range(0, obj_size):
                 point_median_list.append(median)
             radius = (row[1] - row[0])/2
-            middle = int((row[0] + radius)/700.0 * 10000)
-            circles.append(plt.Circle((middle ,median),radius*10,color='g'))
-
-        depth_colormap = cv.rectangle(depth_colormap, (row[0], 200), (row[1], 275), (0, 0 ,255), 2)		
+            middle = int((row[0] + radius)/640.0 * 10000)
+            circles.append(plt.Circle((middle ,median),radius/640.0 * 10000,color='g'))
+            #TODO: Move this rectagle drawing to it's own function. It's kinda hiden
+            depth_colormap = cv.rectangle(depth_colormap, (row[0], 200), (row[1], 275), (0, 0 ,255), 2)		
 
     return circles
-
 
 
 
