@@ -17,3 +17,10 @@ acceleration: 0.0"
 
 ```
 In a separate window when the ros_pololu node is running.
+
+2) Start the Realsense node
+```
+roslaunch realsense2_camera rs_camera.launch
+```
+Code used for the realsense node can be found at https://github.com/IntelRealSense/realsense-ros
+
