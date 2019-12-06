@@ -4,24 +4,17 @@ sys.path.append('/usr/local/lib')
 import pyrealsense2 as rs
 import numpy as np
 import cv2 as cv
-import matplotlib.pyplot as plt 
-import matplotlib.animation as animation
-import rs_util as util
+import ftg_util as util
 import math
-import copy
 
 
-# Setup figure and realsense
-fig, ax = util.setup_figure(plt)
 pipeline = util.setup_realsense(rs)
-
 
 # Set variables used in camera loop
 depth_lower_bound = 275
 depth_image_height = 75
 depth_thresh = 100
 depth_upper_bound = depth_lower_bound - depth_image_height
-
 
 # Init the previous two frames
 depth_2 = np.array([])
@@ -49,23 +42,14 @@ try:
 
 		# From the median_depth get the objects that exist in the scene
 		obstacles = util.get_obstacles(median_depth, depth_thresh)
-		object_circles = util.get_obstacle_circles(depth_colormap, median_depth, obstacles)
-		
+
 		# Prune the obsticals to only include valid
 		pruned_obstacles, pruned_medain = util.get_pruned_obstacles(obstacles, median_depth)
 		
 		# Find the largest gap in the image.
 		largest_gap, gap_depth = util.find_largest_gap(pruned_obstacles, pruned_medain)
 		
-		# Draw the largest gap on the depth image if one is found
-		if not largest_gap == []:
-			depth_colormap = cv.rectangle(depth_colormap, (largest_gap[0], depth_lower_bound), (largest_gap[1], depth_upper_bound), (0, 255 ,0), 2)		
-
-		# TODO: Refactor this section of code, it is missleading that
-		# it draws the circles and the triangle lines
-
-		# TODO: Add a check here, because if we don't have an object we will get an error
-		# x = center for the screen, y = 0
+		# TODO: Add check here for if no gap exists! 
 		car_pos = [340, 0]
 		left_obs = [largest_gap[0], gap_depth[0]]
 		right_obs = [largest_gap[1], gap_depth[1]]
@@ -85,7 +69,6 @@ try:
 		vec_center = [0, 1]
 		center_len = 1
 
-
 		left_dot_prod = vec_left_obs[0] * vec_center[0] + vec_left_obs[1] * vec_center[1]
 		right_dot_prod = vec_right_obs[0] * vec_center[0] + vec_right_obs[1] * vec_center[1]
 
@@ -95,15 +78,11 @@ try:
 		rad_left = math.acos(left_cos_theta)
 		rad_right = math.acos(right_cos_theta)
 
+		# TODO: I might need to check here to see if one should be negative! 
 		ang_left = math.degrees(rad_left)
 		ang_right = math.degrees(rad_right)
 
-		if left_obs[0] > car_pos[0]:
-			ang_left = ang_left * - 1
-		if right_obs[0] > car_pos[0]:
-			ang_right = ang_right * - 1 
-			
-
+		
 		# TODO: Calculate the gap angle! Given from paper
 		cos_added = math.cos(rad_left + rad_right)
 		numerator = left_len + right_len * cos_added
@@ -111,28 +90,6 @@ try:
 		rad_gap = math.acos(numerator/denominator) - rad_left
 		ang_gap = math.degrees(rad_gap)
 		print(ang_gap)
-
-		util.plot_circles(object_circles, plt, ax, fig, largest_gap, gap_depth, ang_gap)
-
-		
-		
-
-
-
-		# Show images
-		real_sense_depth = "real_sense_depth"
-		real_sense_color = "real_sense_color"
-
-		cv.namedWindow(real_sense_color)
-		cv.namedWindow(real_sense_depth)
-
-		cv.moveWindow(real_sense_color, 800, 0)
-		cv.moveWindow(real_sense_depth, 800, 500)
-
-		cv.imshow(real_sense_depth, depth_colormap)
-		cv.imshow(real_sense_color, color_image)
-
-		cv.waitKey(1)
 
 finally:
     pipeline.stop()

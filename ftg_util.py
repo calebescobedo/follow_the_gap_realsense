@@ -5,21 +5,6 @@ import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
 import matplotlib.patches as mpatches
 
-
-
-
-
-
-
-
-
-
-def setup_figure(plt):
-    plt.ion()
-    fig = plt.figure()
-    ax = fig.add_subplot(1,1,1)
-    return fig, ax
-
 def setup_realsense(rs):
     pipeline = rs.pipeline()
     config = rs.config()
