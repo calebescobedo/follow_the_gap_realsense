@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/odroid/ar_workspace/src/ros_pololu_servo/include/polstro/PolstroSerialInterface.h
+string
+-
+
+/home/odroid/ar_workspace/src/ros_pololu_servo/include/polstro/PolstroSerialInterfacePOSIX.h
+PolstroSerialInterface.h
+/home/odroid/ar_workspace/src/ros_pololu_servo/include/polstro/PolstroSerialInterface.h
+
+/home/odroid/ar_workspace/src/ros_pololu_servo/include/polstro/PolstroSerialInterfaceWindows.h
+PolstroSerialInterface.h
+/home/odroid/ar_workspace/src/ros_pololu_servo/include/polstro/PolstroSerialInterface.h
+windows.h
+-
+
+/home/odroid/ar_workspace/src/ros_pololu_servo/src/polstro/PolstroSerialInterface.cpp
+polstro/PolstroSerialInterface.h
+-
+polstro/PolstroSerialInterfaceWindows.h
+-
+polstro/PolstroSerialInterfacePOSIX.h
+-
+
+/home/odroid/ar_workspace/src/ros_pololu_servo/src/polstro/PolstroSerialInterfacePOSIX.cpp
+polstro/PolstroSerialInterfacePOSIX.h
+-
+fcntl.h
+-
+stdio.h
+-
+unistd.h
+-
+termios.h
+-
+errno.h
+-
+

@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -O3 -DNDEBUG  -shared -Wl,-soname,libpolstro.so -o /home/odroid/ar_workspace/devel/lib/libpolstro.so CMakeFiles/polstro.dir/src/polstro/PolstroSerialInterface.cpp.o CMakeFiles/polstro.dir/src/polstro/PolstroSerialInterfacePOSIX.cpp.o  -L/usr/local/lib 

@@ -1,0 +1,8 @@
+prefix=/home/odroid/ar_workspace/devel
+
+Name: pub_sub
+Description: Description of pub_sub
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/odroid/ar_workspace/devel/lib 
+Requires: 

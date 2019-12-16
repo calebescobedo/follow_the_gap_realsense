@@ -1,0 +1,2 @@
+crash_node:ddynamic_reconfigure:depthimage_to_laserscan:pid:race:realsense-ros/realsense2_camera:realsense-ros/realsense2_description:ros_pololu_servo
+-DCATKIN_DEVEL_PREFIX=/home/odroid/ar_workspace/devel -DCMAKE_INSTALL_PREFIX=/home/odroid/ar_workspace/install -G Unix Makefiles

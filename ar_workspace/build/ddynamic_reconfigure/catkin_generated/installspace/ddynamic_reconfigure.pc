@@ -1,0 +1,8 @@
+prefix=/home/odroid/ar_workspace/install
+
+Name: ddynamic_reconfigure
+Description: Description of ddynamic_reconfigure
+Version: 0.2.2
+Cflags: -I/home/odroid/ar_workspace/install/include
+Libs: -L/home/odroid/ar_workspace/install/lib -lddynamic_reconfigure
+Requires: roscpp dynamic_reconfigure

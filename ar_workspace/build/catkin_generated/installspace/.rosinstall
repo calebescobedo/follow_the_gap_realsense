@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/odroid/ar_workspace/install/setup.sh

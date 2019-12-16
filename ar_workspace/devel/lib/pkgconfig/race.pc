@@ -1,0 +1,8 @@
+prefix=/home/odroid/ar_workspace/devel
+
+Name: race
+Description: Description of race
+Version: 1.2.4
+Cflags: 
+Libs: -L/home/odroid/ar_workspace/devel/lib 
+Requires: 

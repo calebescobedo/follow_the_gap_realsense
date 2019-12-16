@@ -1,0 +1,8 @@
+prefix=/home/odroid/ar_workspace/devel
+
+Name: rs_python_tutorials
+Description: Description of rs_python_tutorials
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/odroid/ar_workspace/devel/lib 
+Requires: 

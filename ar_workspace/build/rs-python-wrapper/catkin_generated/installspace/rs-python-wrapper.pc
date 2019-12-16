@@ -1,0 +1,8 @@
+prefix=/home/odroid/ar_workspace/install
+
+Name: rs-python-wrapper
+Description: Description of rs-python-wrapper
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/odroid/ar_workspace/install/lib 
+Requires: 
